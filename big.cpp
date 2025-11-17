@@ -1,48 +1,25 @@
-/*
- * This program is from the "Buffer overflow" theory section (Experiment 6) 
- * in the provided PDF.
- *
- * NOTE: This code demonstrates safe input handling using `fgets` to PREVENT
- * a buffer overflow. It reads a password into a buffer of a fixed size
- * but does not allow more characters than the buffer can hold.
- */
+#include <iostream>
+#include <string>
 
-#include <stdio.h>
-#include <string.h>
+using namespace std;
 
-int main(void)
-{
-    // A buffer of 15 characters.
-    char buff[15];
-    
-    // A variable to check if the password is correct.
-    int pass = 0;
+int main() {
+    string buff;
+    bool pass = false;
 
-    printf("\nEnter the password: ");
-    
-    // Safely read input from the user.
-    // fgets will read at most `sizeof(buff)` (15) characters, 
-    // including the null terminator. This prevents a buffer overflow.
-    fgets(buff, sizeof(buff), stdin);
+    cout << "\nEnter the password: ";
 
-    // Remove trailing newline character if fgets stored one
-    buff[strcspn(buff, "\n")] = '\0';
+    getline(cin, buff);
 
-    // Compare the input buffer with the password "mansi"
-    if (strcmp(buff, "mansi") == 0)
-    {
-        printf("\nCorrect Password\n");
-        pass = 1;
-    }
-    else
-    {
-        printf("\nWrong Password\n");
+    if (buff == "darsh") {
+        cout << "\nCorrect Password\n";
+        pass = true;
+    } else {
+        cout << "\nWrong Password\n";
     }
 
-    // Check if the pass flag was set
-    if (pass)
-    {
-        printf("\nRoot/admin rights granted to user\n");
+    if (pass) {
+        cout << "\nRoot/admin rights granted to user\n";
     }
 
     return 0;
